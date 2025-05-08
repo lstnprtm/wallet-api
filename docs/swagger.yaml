@@ -1,0 +1,61 @@
+openapi: 3.0.0
+info:
+  title: Wallet API
+  version: 1.0.0
+paths:
+  /login:
+    post:
+      summary: User login
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                password:
+                  type: string
+      responses:
+        '200':
+          description: Successful login with JWT token
+  /api/balance:
+    get:
+      summary: Get wallet balance
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Wallet balance
+  /api/withdraw:
+    post:
+      summary: Withdraw from wallet
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                amount:
+                  type: integer
+      responses:
+        '200':
+          description: Withdraw successful
+  /api/history:
+    get:
+      summary: Get wallet history
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Transaction list
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
